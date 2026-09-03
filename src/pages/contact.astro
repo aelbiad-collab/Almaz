@@ -1,7 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const mapQuery = encodeURIComponent('Al Amz, Maroc');
+// Vue locale centrée sur le Maroc (Casablanca, à ajuster avec les coordonnées
+// précises du quartier Al Amz) avec un zoom ville : à ce niveau, aucune
+// frontière nationale n'apparaît dans le cadre, ce qui évite le rendu par
+// défaut de Google Maps sur les frontières contestées (Sahara marocain).
+const mapCenter = '33.5731,-7.5898';
+const mapZoom = 12;
 ---
 
 <BaseLayout title="Contact" description="Coordonnées et formulaire de contact de l'Association Horizon Almaz.">
@@ -24,7 +29,7 @@ const mapQuery = encodeURIComponent('Al Amz, Maroc');
         <div class="map-frame">
           <iframe
             title="Localisation du quartier Al Amz"
-            src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+            src={`https://www.google.com/maps?ll=${mapCenter}&z=${mapZoom}&output=embed`}
             width="100%" height="240" style="border:0;" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade">
           </iframe>
