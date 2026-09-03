@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Espace Adhérents" description="Zone sécurisée réservée aux adhérents de l'association Horizon Almaz.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Accès réservé</p>
+      <h1>Espace Adhérents</h1>
+      <p class="lead">
+        Zone sécurisée accessible aux membres à jour de cotisation : documents internes,
+        comptes rendus et outils de réunion en ligne.
+      </p>
+
+      <div class="notice" style="max-width:62ch; margin-top:1rem;">
+        Cette maquette montre l'interface prévue. La connexion sécurisée (identifiant / mot de
+        passe) nécessite la mise en place d'un service d'authentification côté serveur — prévue
+        en phase 2 du projet, voir la section « Accompagnement attendu » du cahier des charges.
+      </div>
+
+      <div class="grid grid--2" style="margin-top:2rem; align-items:flex-start;">
+        <form class="card login-form">
+          <h2 style="font-size:1.1rem;">Connexion adhérent</h2>
+          <label>
+            Identifiant
+            <input type="text" name="username" placeholder="votre identifiant" disabled />
+          </label>
+          <label>
+            Mot de passe
+            <input type="password" name="password" placeholder="••••••••" disabled />
+          </label>
+          <button type="button" class="btn btn--primary" disabled>Se connecter (à venir)</button>
+          <p class="help">Pas encore adhérent ? <a href="/contact">Contactez le bureau</a> pour demander votre accès.</p>
+        </form>
+
+        <div class="card">
+          <h2 style="font-size:1.1rem;">Ce que vous trouverez ici</h2>
+          <ul>
+            <li>Procès-verbaux (PV) des réunions</li>
+            <li>Rapports d'activité et financiers</li>
+            <li>Convocations et ordres du jour</li>
+            <li>Comptes rendus des assemblées</li>
+            <li>Mur d'échange entre membres (optionnel)</li>
+            <li>Liens de réunion en ligne (Google Meet, Discord)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .login-form { display: grid; gap: 1rem; }
+  .login-form label { display: grid; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; color: var(--color-bark); }
+  .login-form input {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: var(--color-cream);
+  }
+  .login-form button { justify-self: start; }
+  .help { font-size: 0.85rem; color: var(--color-ink-light); margin: 0; }
+</style>

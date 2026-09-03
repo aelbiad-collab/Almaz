@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { annuaireLocal } from '../data/annuaireLocal';
+---
+
+<BaseLayout title="Annuaire local" description="Offres des commerces et services privés de proximité — un espace au service de l'autofinancement de l'association.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Autofinancement</p>
+      <h1>Annuaire local</h1>
+      <p class="lead">
+        Cet espace met en avant les commerces, boutiques, centres commerciaux et services privés
+        de proximité (médecin, centre de formation, avocat, notaire…). Sa mise en avant contribue
+        au financement de l'association.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container grid grid--2">
+      {annuaireLocal.map((a) => (
+        <div class="card">
+          <span class="badge badge--info">{a.categorie}</span>
+          <h3 style="font-size:1.05rem; margin-top:0.5rem;">{a.nom}</h3>
+          <p style="color:var(--color-ink-light);">{a.description}</p>
+          {a.url && <a href={a.url} target="_blank" rel="noopener">Visiter →</a>}
+          {a.contact && <p style="font-size:0.85rem;"><strong>Contact :</strong> {a.contact}</p>}
+        </div>
+      ))}
+    </div>
+
+    <div class="container">
+      <p class="notice" style="margin-top:1.5rem;">
+        Vous êtes commerçant ou prestataire de service dans le quartier ?
+        <a href="/contact">Contactez-nous</a> pour figurer dans cet annuaire.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

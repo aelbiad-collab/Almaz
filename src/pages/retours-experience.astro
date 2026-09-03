@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const prestataires = (await getCollection('prestataires'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categories = [...new Set(prestataires.map((p) => p.data.categorie))].sort();
+---
+
+<BaseLayout title="Retours d'expérience" description="Avis des résidents sur les prestataires : recommandations et signalements, par catégorie.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Communauté</p>
+      <h1>Retours d'expérience</h1>
+      <p class="lead">
+        Partagez votre avis sur les prestataires ayant travaillé dans le quartier. Cette rubrique
+        référence les prestataires recommandés et signale ceux ayant fait l'objet de réclamations
+        multiples.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-chip is-active" data-cat="all">Tous</button>
+        {categories.map((c) => (
+          <button class="filter-chip" data-cat={c}>{c}</button>
+        ))}
+      </div>
+
+      <div class="grid grid--3" id="prestataires-grid" style="margin-top:1.5rem;">
+        {prestataires.map((p) => (
+          <div class="card presta-card" data-cat={p.data.categorie}>
+            <span class={`badge ${p.data.statut === 'recommande' ? 'badge--ok' : 'badge--warn'}`}>
+              {p.data.statut === 'recommande' ? 'Recommandé' : 'Signalé'}
+            </span>
+            <h3 style="font-size:1.05rem; margin-top:0.6rem;">{p.data.nom}</h3>
+            <span class="tag">{p.data.categorie}</span>
+            <p style="color:var(--color-ink-light); font-size:0.9rem;">{p.data.resume}</p>
+            <p style="font-size:0.8rem; color:var(--color-ink-light);">
+              — {p.data.auteur}, {p.data.date.toLocaleDateString('fr-FR')}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <a href="/contact" class="btn btn--primary" style="margin-top:2rem;">Partager mon retour</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .filter-chip {
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-paper);
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .filter-chip.is-active { background: var(--color-forest); color: #fff; border-color: var(--color-forest); }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-chip');
+  const cards = document.querySelectorAll<HTMLElement>('.presta-card');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const cat = btn.dataset.cat;
+      cards.forEach((card) => {
+        card.style.display = cat === 'all' || card.dataset.cat === cat ? '' : 'none';
+      });
+    });
+  });
+</script>

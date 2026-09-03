@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Recherche" description="Recherchez dans les actualités, publications et pages du site Horizon Almaz.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Moteur de recherche interne</p>
+      <h1>Rechercher sur le site</h1>
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Rechercher une actualité, un document, une page…"
+        class="search-input"
+      />
+      <ul id="search-results" class="search-results"></ul>
+      <p id="search-empty" class="lead" hidden>Aucun résultat trouvé.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .search-input {
+    width: 100%;
+    max-width: 560px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 1rem;
+    margin: 1.5rem 0;
+    background: var(--color-paper);
+  }
+  .search-results { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; max-width: 720px; }
+  .search-results li {
+    background: var(--color-paper);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+  }
+  .search-results a { font-weight: 700; }
+  .search-results .section-label { font-size: 0.75rem; color: var(--color-terracotta); text-transform: uppercase; }
+</style>
+
+<script>
+  type Entry = { title: string; excerpt: string; url: string; section: string };
+
+  const input = document.getElementById('search-input') as HTMLInputElement;
+  const results = document.getElementById('search-results') as HTMLUListElement;
+  const empty = document.getElementById('search-empty') as HTMLParagraphElement;
+  let index: Entry[] = [];
+
+  fetch('/search-index.json')
+    .then((r) => r.json())
+    .then((data: Entry[]) => { index = data; });
+
+  function render(entries: Entry[]) {
+    results.innerHTML = entries
+      .map(
+        (e) => `<li>
+          <div class="section-label">${e.section}</div>
+          <a href="${e.url}">${e.title}</a>
+          <p>${e.excerpt}</p>
+        </li>`
+      )
+      .join('');
+    empty.hidden = entries.length !== 0 || input.value.trim() === '';
+  }
+
+  input?.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    if (!q) { render([]); return; }
+    const matches = index.filter(
+      (e) => e.title.toLowerCase().includes(q) || e.excerpt.toLowerCase().includes(q)
+    );
+    render(matches);
+  });
+</script>

@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const categories = [
+  { nom: 'Culturelles', desc: 'Événements, fêtes de quartier et échanges intergénérationnels.' },
+  { nom: 'Sociales', desc: "Actions de solidarité envers les familles et personnes en difficulté." },
+  { nom: 'Environnementales', desc: 'Reboisement, propreté du quartier, sensibilisation écologique.' },
+  { nom: 'Sportives', desc: 'Tournois, sorties et activités physiques pour tous les âges.' },
+];
+
+const programmes = [
+  { titre: 'Aménagement des espaces verts', statut: 'En cours' },
+  { titre: "Campagne de propreté du quartier", statut: 'Réalisé' },
+  { titre: "Journée portes ouvertes de l'association", statut: 'En cours' },
+];
+---
+
+<BaseLayout title="Activités et programmes" description="Découvrez les activités culturelles, sociales, environnementales et sportives de l'association.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Vie associative</p>
+      <h1>Nos activités et programmes</h1>
+      <p class="lead">L'association organise et soutient des initiatives dans plusieurs domaines au bénéfice du quartier.</p>
+
+      <div class="grid grid--4" style="margin-top:2rem;">
+        {categories.map((c) => (
+          <div class="card">
+            <h3 style="font-size:1.05rem;">{c.nom}</h3>
+            <p style="color:var(--color-ink-light); font-size:0.9rem;">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <p class="eyebrow">Suivi</p>
+      <h2>Programmes et projets</h2>
+      <table style="margin-top:1rem;">
+        <thead><tr><th>Programme</th><th>Statut</th></tr></thead>
+        <tbody>
+          {programmes.map((p) => (
+            <tr>
+              <td>{p.titre}</td>
+              <td><span class={`badge ${p.statut === 'Réalisé' ? 'badge--ok' : 'badge--info'}`}>{p.statut}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">En images</p>
+      <h2>Galerie photos & vidéos</h2>
+      <p class="lead">Les photos et vidéos des événements de l'association seront publiées ici au fil des activités.</p>
+      <div class="grid grid--4" style="margin-top:1.5rem;">
+        {Array.from({ length: 4 }).map(() => (
+          <div class="gallery-placeholder">Photo à venir</div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .gallery-placeholder {
+    aspect-ratio: 4 / 3;
+    background: repeating-linear-gradient(45deg, #ece7d6, #ece7d6 10px, #f3efe2 10px, #f3efe2 20px);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-ink-light);
+    font-size: 0.85rem;
+    border: 1px dashed var(--color-border);
+  }
+</style>

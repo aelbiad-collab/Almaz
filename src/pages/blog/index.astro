@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Actualités" description="Toutes les actualités et publications du blog de l'Association Horizon Almaz.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Blog</p>
+      <h1>Actualités de l'association</h1>
+      <p class="lead">Suivez la vie de l'association et les nouvelles du quartier.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p>Aucun article publié pour le moment.</p>
+      ) : (
+        <div class="grid grid--3">
+          {posts.map((post) => (
+            <a class="card news-card" href={`/blog/${post.id}`}>
+              <span class="eyebrow">{post.data.date.toLocaleDateString('fr-FR')}</span>
+              <h2 style="font-size:1.1rem;">{post.data.title}</h2>
+              <p style="color:var(--color-ink-light); font-size:0.9rem;">{post.data.excerpt}</p>
+              <div>
+                {post.data.tags.map((t) => <span class="tag">{t}</span>)}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .news-card { display: block; color: inherit; }
+  .news-card:hover { text-decoration: none; box-shadow: 0 6px 18px rgba(52,52,44,0.12); }
+</style>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { liensUtiles } from '../data/liensUtiles';
+
+const categories = [...new Set(liensUtiles.map((l) => l.categorie))];
+---
+
+<BaseLayout title="Liens utiles" description="Adresses et contacts utiles : autorités locales, services publics, sécurité et sites pratiques.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Pratique</p>
+      <h1>Liens utiles</h1>
+      <p class="lead">Contacts et ressources utiles pour les résidents du quartier.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      {categories.map((cat) => (
+        <div class="cat-block">
+          <h2 style="font-size:1.1rem;">{cat}</h2>
+          <div class="grid grid--3">
+            {liensUtiles.filter((l) => l.categorie === cat).map((l) => (
+              <div class="card">
+                <h3 style="font-size:1rem;">{l.nom}</h3>
+                <p style="color:var(--color-ink-light); font-size:0.88rem;">{l.description}</p>
+                {l.telephone && <p style="font-size:0.85rem;"><strong>Tél. :</strong> {l.telephone}</p>}
+                {l.url && <a href={l.url} target="_blank" rel="noopener">Visiter le site →</a>}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cat-block { margin-bottom: 2.25rem; }
+</style>

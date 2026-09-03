@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={post.data.title} description={post.data.excerpt}>
+  <article class="section">
+    <div class="container article">
+      <p class="eyebrow">{post.data.date.toLocaleDateString('fr-FR')} · {post.data.author}</p>
+      <h1>{post.data.title}</h1>
+      <div class="article__body">
+        <Content />
+      </div>
+      <a href="/blog" class="btn btn--outline" style="margin-top:2rem;">← Toutes les actualités</a>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article { max-width: 72ch; }
+  .article__body { color: var(--color-ink); }
+  .article__body :global(p) { margin-bottom: 1.1em; }
+</style>

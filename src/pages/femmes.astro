@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const rubriques = [
+  { titre: 'Ateliers et formations', desc: 'Couture, artisanat, informatique, gestion de projet…' },
+  { titre: 'Santé et bien-être', desc: 'Sensibilisation, prévention et rencontres thématiques.' },
+  { titre: 'Entrepreneuriat féminin', desc: 'Accompagnement des initiatives et petits projets portés par des femmes du quartier.' },
+  { titre: 'Groupe de parole', desc: 'Un espace d\'écoute et d\'échange entre femmes de la communauté.' },
+];
+---
+
+<BaseLayout title="Espace 100% Femme" description="Un espace dédié aux femmes de l'Association Horizon Almaz : ateliers, ressources et échanges.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Espace dédié</p>
+      <h1>Espace 100% Femme</h1>
+      <p class="lead">
+        Un espace pensé par et pour les femmes de l'association, pour échanger, se former et
+        porter des initiatives locales.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container grid grid--2">
+      {rubriques.map((r) => (
+        <div class="card">
+          <h3 style="font-size:1.05rem;">{r.titre}</h3>
+          <p style="color:var(--color-ink-light);">{r.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="notice">
+        Contenu à enrichir avec l'association : programme d'activités, intervenantes,
+        témoignages et ressources dédiées.
+      </p>
+      <a href="/contact" class="btn btn--primary" style="margin-top:1rem;">Proposer une activité</a>
+    </div>
+  </section>
+</BaseLayout>

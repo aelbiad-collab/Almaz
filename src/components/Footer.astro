@@ -1,0 +1,95 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="brand">
+        <img src="/logo.png" alt="Association Horizon Almaz" width="40" height="40" />
+        <span>Horizon Almaz</span>
+      </div>
+      <p class="muted">Association Horizon Almaz pour le Développement — quartier Al Amz.</p>
+    </div>
+
+    <div>
+      <h4>Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="/association">L'association</a></li>
+        <li><a href="/activites">Activités et programmes</a></li>
+        <li><a href="/publications">Publications</a></li>
+        <li><a href="/retours-experience">Retours d'expérience</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Ressources</h4>
+      <ul class="footer-links">
+        <li><a href="/liens-utiles">Liens utiles</a></li>
+        <li><a href="/femmes">Espace 100% Femme</a></li>
+        <li><a href="/blog">Actualités</a></li>
+        <li><a href="/adherents">Espace adhérents</a></li>
+        <li><a href="/adhesion">Devenir adhérent</a></li>
+        <li><a href="/annuaire-local">Annuaire local</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p class="muted">contact@horizonalmaz.ma</p>
+      <a href="/contact" class="btn btn--sm footer-contact-btn">Nous contacter</a>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>&copy; {year} Association Horizon Almaz pour le Développement. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-bark);
+    color: #e8e6da;
+    margin-top: 4rem;
+    padding-top: 3rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+  .site-footer h4 {
+    color: #fff;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .brand img { border-radius: 50%; }
+  .muted { color: #c7c4b3; font-size: 0.9rem; }
+  .footer-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .footer-links a { color: #d9d7c8; font-size: 0.9rem; }
+  .footer-links a:hover { color: #fff; }
+  .footer-contact-btn {
+    background: transparent;
+    border: 2px solid var(--color-ochre);
+    color: var(--color-ochre);
+  }
+  .footer-contact-btn:hover { background: var(--color-ochre); color: var(--color-bark); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 1.25rem 0;
+    font-size: 0.8rem;
+    color: #b8b6a5;
+  }
+  @media (max-width: 780px) {
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

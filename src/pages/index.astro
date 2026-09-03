@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const highlights = [
+  { title: 'Vitrine numérique', text: "Faire connaître nos objectifs, nos réalisations et nos programmes au plus grand nombre." },
+  { title: 'Communication facilitée', text: 'Un lien direct entre le bureau, les adhérents et les résidents du quartier.' },
+  { title: 'Espace documentaire', text: 'PV, comptes rendus et rapports centralisés et accessibles aux membres.' },
+  { title: 'Actions communautaires', text: 'Valoriser les initiatives environnementales, sociales et culturelles menées ensemble.' },
+];
+---
+
+<BaseLayout title="Accueil">
+  <section class="hero">
+    <div class="container hero__inner">
+      <div>
+        <p class="eyebrow">Quartier Al Amz</p>
+        <h1>Association Horizon Almaz pour le Développement</h1>
+        <p class="lead">
+          Une association de résidents engagée pour un quartier plus solidaire, plus vert et
+          mieux organisé — au service de ses adhérents et de la communauté.
+        </p>
+        <div class="hero__actions">
+          <a href="/association" class="btn btn--primary">Découvrir l'association</a>
+          <a href="/adherents" class="btn btn--outline">Espace Adhérents</a>
+        </div>
+      </div>
+      <div class="hero__logo">
+        <img src="/logo.png" alt="Logo Horizon Almaz" width="260" height="260" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <p class="eyebrow">Notre mission</p>
+      <h2>Ce que nous apportons au quartier</h2>
+      <div class="grid grid--4" style="margin-top:2rem;">
+        {highlights.map((h) => (
+          <div class="card">
+            <h3 style="font-size:1.05rem;">{h.title}</h3>
+            <p style="color:var(--color-ink-light); font-size:0.92rem;">{h.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Actualités</p>
+          <h2>Dernières nouvelles de l'association</h2>
+        </div>
+        <a href="/blog" class="btn btn--outline btn--sm">Toutes les actualités</a>
+      </div>
+
+      {posts.length === 0 ? (
+        <p class="lead">Les premières actualités seront bientôt publiées ici.</p>
+      ) : (
+        <div class="grid grid--3" style="margin-top:1.5rem;">
+          {posts.map((post) => (
+            <a class="card news-card" href={`/blog/${post.id}`}>
+              <span class="eyebrow">{post.data.date.toLocaleDateString('fr-FR')}</span>
+              <h3 style="font-size:1.05rem;">{post.data.title}</h3>
+              <p style="color:var(--color-ink-light); font-size:0.9rem;">{post.data.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section section--alt cta">
+    <div class="container cta__inner">
+      <div>
+        <h2>Rejoignez l'espace 100% Femme</h2>
+        <p class="lead">Un espace dédié aux femmes de l'association : activités, ressources et échanges.</p>
+      </div>
+      <a href="/femmes" class="btn btn--primary">Découvrir l'espace</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    background: linear-gradient(135deg, #eef1e4 0%, var(--color-cream) 60%);
+    padding: 3.5rem 0;
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+    gap: 2.5rem;
+  }
+  .hero h1 { font-size: 2.4rem; margin-bottom: 0.75rem; }
+  .hero__actions { display: flex; gap: 1rem; margin-top: 1.75rem; flex-wrap: wrap; }
+  .hero__logo { display: flex; justify-content: center; }
+  .hero__logo img { border-radius: 50%; box-shadow: var(--shadow); }
+
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .news-card { display: block; color: inherit; }
+  .news-card:hover { text-decoration: none; box-shadow: 0 6px 18px rgba(52,52,44,0.12); }
+
+  .cta__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 860px) {
+    .hero__inner { grid-template-columns: 1fr; text-align: center; }
+    .hero__actions { justify-content: center; }
+    .hero__logo { order: -1; }
+    .hero__logo img { width: 160px; height: 160px; }
+  }
+</style>

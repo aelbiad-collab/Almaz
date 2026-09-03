@@ -1,0 +1,151 @@
+---
+const nav = [
+  { href: '/', label: 'Accueil' },
+  { href: '/association', label: "L'association" },
+  { href: '/activites', label: 'Activités' },
+  { href: '/femmes', label: '100% Femme' },
+  { href: '/publications', label: 'Publications' },
+  { href: '/retours-experience', label: 'Prestataires' },
+  { href: '/liens-utiles', label: 'Liens utiles' },
+  { href: '/blog', label: 'Actualités' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container site-header__bar">
+    <a href="/" class="brand">
+      <img src="/logo.png" alt="Association Horizon Almaz" width="44" height="44" />
+      <span class="brand__text">Horizon Almaz</span>
+    </a>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" id="nav-toggle">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <ul>
+        {nav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="site-nav__actions">
+        <a href="/recherche" class="search-link" aria-label="Rechercher">🔍</a>
+        <a href="/adherents" class="btn btn--primary btn--sm">Espace Adhérents</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--color-paper);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .site-header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+    gap: 1rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--color-bark);
+  }
+  .brand:hover { text-decoration: none; }
+  .brand img { border-radius: 50%; }
+  .brand__text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.15rem;
+  }
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .site-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    margin: 0;
+    padding: 0;
+  }
+  .site-nav a {
+    color: var(--color-ink);
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  .site-nav a:hover { color: var(--color-forest-dark); text-decoration: none; }
+  .site-nav a[aria-current='page'] { color: var(--color-forest-dark); font-weight: 700; }
+  .btn--sm { padding: 0.45rem 1rem; font-size: 0.85rem; white-space: nowrap; }
+  .site-nav__actions { display: flex; align-items: center; gap: 0.85rem; }
+  .search-link { font-size: 1.1rem; }
+  .search-link:hover { text-decoration: none; }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 34px;
+    height: 34px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block;
+    height: 2px;
+    background: var(--color-bark);
+    border-radius: 2px;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  @media (max-width: 860px) {
+    .nav-toggle { display: flex; }
+    .site-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--color-paper);
+      border-bottom: 1px solid var(--color-border);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem 1.25rem 1.5rem;
+      display: none;
+    }
+    .site-nav.is-open { display: flex; }
+    .site-nav ul { flex-direction: column; gap: 0.85rem; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('site-nav');
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+</script>

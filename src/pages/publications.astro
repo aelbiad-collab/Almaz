@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const docs = (await getCollection('publications', ({ data }) => data.public))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const years = [...new Set(docs.map((d) => d.data.year))].sort((a, b) => b - a);
+---
+
+<BaseLayout title="Publications" description="Documents publics de l'association : rapports, comptes rendus, photos et vidéos, classés par type et par année.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Espace de stockage</p>
+      <h1>Publications</h1>
+      <p class="lead">Documents publics de l'association, classés par type et par année.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      {years.length === 0 ? (
+        <p>Aucun document publié pour le moment.</p>
+      ) : (
+        years.map((year) => (
+          <div class="year-block">
+            <h2 style="font-size:1.2rem;">{year}</h2>
+            <div class="grid grid--2">
+              {docs.filter((d) => d.data.year === year).map((d) => (
+                <a class="card doc-row" href={d.data.file}>
+                  <span class="badge badge--info">{d.data.type}</span>
+                  <h3 style="font-size:1rem; margin-top:0.5rem;">{d.data.title}</h3>
+                  <p style="color:var(--color-ink-light); font-size:0.85rem;">
+                    Publié le {d.data.date.toLocaleDateString('fr-FR')}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .year-block { margin-bottom: 2.5rem; }
+  .doc-row { display: block; color: inherit; }
+  .doc-row:hover { text-decoration: none; box-shadow: 0 6px 18px rgba(52,52,44,0.12); }
+</style>

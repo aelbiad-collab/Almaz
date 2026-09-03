@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const mapQuery = encodeURIComponent('Al Amz, Maroc');
+---
+
+<BaseLayout title="Contact" description="Coordonnées et formulaire de contact de l'Association Horizon Almaz.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Nous écrire</p>
+      <h1>Espace Contact</h1>
+      <p class="lead">Une question, une suggestion, une demande d'adhésion ? Contactez le bureau de l'association.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container grid grid--2" style="align-items:flex-start;">
+      <div class="card">
+        <h2 style="font-size:1.1rem;">Coordonnées</h2>
+        <p><strong>Responsable communication</strong><br />À compléter</p>
+        <p><strong>Email :</strong> <a href="mailto:contact@horizonalmaz.ma">contact@horizonalmaz.ma</a></p>
+        <p><strong>Contact projet :</strong> Abdeltif ELBIAD, Conseiller</p>
+
+        <div class="map-frame">
+          <iframe
+            title="Localisation du quartier Al Amz"
+            src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+            width="100%" height="240" style="border:0;" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="help">Carte indicative — à ajuster avec l'adresse précise de l'association.</p>
+      </div>
+
+      <form class="card contact-form" method="post" action={`mailto:contact@horizonalmaz.ma`}>
+        <h2 style="font-size:1.1rem;">Formulaire de contact</h2>
+        <label>
+          Nom complet
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary">Envoyer le message</button>
+        <p class="help">
+          Envoi via votre messagerie par défaut. L'envoi automatique (sans quitter le site)
+          nécessite l'intégration d'un service d'envoi d'e-mails côté serveur — prévue en phase 2.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-form { display: grid; gap: 1rem; }
+  .contact-form label { display: grid; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; color: var(--color-bark); }
+  .contact-form input, .contact-form textarea {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--color-cream);
+  }
+  .contact-form button { justify-self: start; }
+  .help { font-size: 0.8rem; color: var(--color-ink-light); margin: 0; }
+  .map-frame { border-radius: var(--radius); overflow: hidden; margin-top: 1rem; border: 1px solid var(--color-border); }
+</style>

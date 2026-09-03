@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { bureau } from '../data/bureau';
+---
+
+<BaseLayout title="L'association" description="Contexte, objectifs, bureau et statuts de l'Association Horizon Almaz.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Présentation</p>
+      <h1>L'Association Horizon Almaz pour le Développement</h1>
+      <p class="lead">
+        Née de la volonté des résidents du quartier Al Amz de s'organiser collectivement,
+        l'association œuvre pour un cadre de vie meilleur, plus solidaire et durable.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container grid grid--2">
+      <div class="card">
+        <h2 style="font-size:1.2rem;">Contexte de création</h2>
+        <p style="color:var(--color-ink-light);">
+          Face aux besoins croissants du quartier en matière d'infrastructure, de sécurité et de
+          vie communautaire, un groupe de résidents a fondé l'association afin de porter
+          collectivement leurs projets auprès des autorités et partenaires locaux.
+        </p>
+      </div>
+      <div class="card">
+        <h2 style="font-size:1.2rem;">Objectifs et missions</h2>
+        <ul>
+          <li>Représenter et défendre les intérêts des résidents</li>
+          <li>Améliorer le cadre de vie et les infrastructures du quartier</li>
+          <li>Favoriser la communication entre adhérents et bureau</li>
+          <li>Promouvoir les actions communautaires, environnementales et sociales</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Gouvernance</p>
+      <h2>Membres du bureau</h2>
+      <div class="grid grid--3" style="margin-top:1.5rem;">
+        {bureau.map((m) => (
+          <div class="card">
+            <h3 style="font-size:1rem; margin-bottom:0.2rem;">{m.nom}</h3>
+            <p style="color:var(--color-terracotta); font-size:0.85rem; font-weight:600; margin:0;">{m.role}</p>
+          </div>
+        ))}
+      </div>
+      <p class="notice" style="margin-top:1.5rem;">
+        Organigramme et coordonnées complètes du bureau à finaliser avec l'association.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <p class="eyebrow">Documents officiels</p>
+      <h2>Statuts et règlement intérieur</h2>
+      <p class="lead">Consultez et téléchargez les documents fondateurs de l'association.</p>
+      <div class="grid grid--2" style="margin-top:1.5rem;">
+        <a class="card doc-card" href="/documents/statuts-horizon-almaz.pdf">
+          <span class="badge badge--ok">PDF</span>
+          <h3 style="font-size:1rem; margin-top:0.5rem;">Statuts de l'association</h3>
+          <p style="color:var(--color-ink-light); font-size:0.9rem;">Document à déposer par l'association.</p>
+        </a>
+        <a class="card doc-card" href="/documents/reglement-interieur-horizon-almaz.pdf">
+          <span class="badge badge--ok">PDF</span>
+          <h3 style="font-size:1rem; margin-top:0.5rem;">Règlement intérieur</h3>
+          <p style="color:var(--color-ink-light); font-size:0.9rem;">Document à déposer par l'association.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .doc-card { display: block; color: inherit; }
+  .doc-card:hover { text-decoration: none; box-shadow: 0 6px 18px rgba(52,52,44,0.12); }
+</style>
