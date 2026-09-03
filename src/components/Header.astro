@@ -1,14 +1,16 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const nav = [
-  { href: '/', label: 'Accueil' },
-  { href: '/association', label: "L'association" },
-  { href: '/activites', label: 'Activités' },
-  { href: '/femmes', label: '100% Femme' },
-  { href: '/publications', label: 'Publications' },
-  { href: '/retours-experience', label: 'Prestataires' },
-  { href: '/liens-utiles', label: 'Liens utiles' },
-  { href: '/blog', label: 'Actualités' },
-  { href: '/contact', label: 'Contact' },
+  { href: `${base}/`, label: 'Accueil' },
+  { href: `${base}/association`, label: "L'association" },
+  { href: `${base}/activites`, label: 'Activités' },
+  { href: `${base}/femmes`, label: '100% Femme' },
+  { href: `${base}/publications`, label: 'Publications' },
+  { href: `${base}/retours-experience`, label: 'Prestataires' },
+  { href: `${base}/liens-utiles`, label: 'Liens utiles' },
+  { href: `${base}/blog`, label: 'Actualités' },
+  { href: `${base}/contact`, label: 'Contact' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -16,8 +18,8 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header">
   <div class="container site-header__bar">
-    <a href="/" class="brand">
-      <img src="/logo.png" alt="Association Horizon Almaz" width="44" height="44" />
+    <a href={`${base}/`} class="brand">
+      <img src={`${base}/logo.png`} alt="Association Horizon Almaz" width="44" height="44" />
       <span class="brand__text">Horizon Almaz</span>
     </a>
 
@@ -37,8 +39,8 @@ const currentPath = Astro.url.pathname;
         ))}
       </ul>
       <div class="site-nav__actions">
-        <a href="/recherche" class="search-link" aria-label="Rechercher">🔍</a>
-        <a href="/adherents" class="btn btn--primary btn--sm">Espace Adhérents</a>
+        <a href={`${base}/recherche`} class="search-link" aria-label="Rechercher">🔍</a>
+        <a href={`${base}/adherents`} class="btn btn--primary btn--sm">Espace Adhérents</a>
       </div>
     </nav>
   </div>

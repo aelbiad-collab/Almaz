@@ -1,11 +1,12 @@
 ---
 const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
       <div class="brand">
-        <img src="/logo.png" alt="Association Horizon Almaz" width="40" height="40" />
+        <img src={`${base}/logo.png`} alt="Association Horizon Almaz" width="40" height="40" />
         <span>Horizon Almaz</span>
       </div>
       <p class="muted">Association Horizon Almaz pour le Développement — quartier Al Amz.</p>
@@ -14,29 +15,29 @@ const year = new Date().getFullYear();
     <div>
       <h4>Navigation</h4>
       <ul class="footer-links">
-        <li><a href="/association">L'association</a></li>
-        <li><a href="/activites">Activités et programmes</a></li>
-        <li><a href="/publications">Publications</a></li>
-        <li><a href="/retours-experience">Retours d'expérience</a></li>
+        <li><a href={`${base}/association`}>L'association</a></li>
+        <li><a href={`${base}/activites`}>Activités et programmes</a></li>
+        <li><a href={`${base}/publications`}>Publications</a></li>
+        <li><a href={`${base}/retours-experience`}>Retours d'expérience</a></li>
       </ul>
     </div>
 
     <div>
       <h4>Ressources</h4>
       <ul class="footer-links">
-        <li><a href="/liens-utiles">Liens utiles</a></li>
-        <li><a href="/femmes">Espace 100% Femme</a></li>
-        <li><a href="/blog">Actualités</a></li>
-        <li><a href="/adherents">Espace adhérents</a></li>
-        <li><a href="/adhesion">Devenir adhérent</a></li>
-        <li><a href="/annuaire-local">Annuaire local</a></li>
+        <li><a href={`${base}/liens-utiles`}>Liens utiles</a></li>
+        <li><a href={`${base}/femmes`}>Espace 100% Femme</a></li>
+        <li><a href={`${base}/blog`}>Actualités</a></li>
+        <li><a href={`${base}/adherents`}>Espace adhérents</a></li>
+        <li><a href={`${base}/adhesion`}>Devenir adhérent</a></li>
+        <li><a href={`${base}/annuaire-local`}>Annuaire local</a></li>
       </ul>
     </div>
 
     <div>
       <h4>Contact</h4>
       <p class="muted">contact@horizonalmaz.ma</p>
-      <a href="/contact" class="btn btn--sm footer-contact-btn">Nous contacter</a>
+      <a href={`${base}/contact`} class="btn btn--sm footer-contact-btn">Nous contacter</a>
     </div>
   </div>
 

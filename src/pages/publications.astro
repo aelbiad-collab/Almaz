@@ -6,6 +6,7 @@ const docs = (await getCollection('publications', ({ data }) => data.public))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const years = [...new Set(docs.map((d) => d.data.year))].sort((a, b) => b - a);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="Publications" description="Documents publics de l'association : rapports, comptes rendus, photos et vidéos, classés par type et par année.">
@@ -27,7 +28,7 @@ const years = [...new Set(docs.map((d) => d.data.year))].sort((a, b) => b - a);
             <h2 style="font-size:1.2rem;">{year}</h2>
             <div class="grid grid--2">
               {docs.filter((d) => d.data.year === year).map((d) => (
-                <a class="card doc-row" href={d.data.file}>
+                <a class="card doc-row" href={`${base}${d.data.file}`}>
                   <span class="badge badge--info">{d.data.type}</span>
                   <h3 style="font-size:1rem; margin-top:0.5rem;">{d.data.title}</h3>
                   <p style="color:var(--color-ink-light); font-size:0.85rem;">

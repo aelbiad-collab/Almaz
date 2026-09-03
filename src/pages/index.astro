@@ -12,6 +12,8 @@ const highlights = [
   { title: 'Espace documentaire', text: 'PV, comptes rendus et rapports centralisés et accessibles aux membres.' },
   { title: 'Actions communautaires', text: 'Valoriser les initiatives environnementales, sociales et culturelles menées ensemble.' },
 ];
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="Accueil">
@@ -25,12 +27,12 @@ const highlights = [
           mieux organisé — au service de ses adhérents et de la communauté.
         </p>
         <div class="hero__actions">
-          <a href="/association" class="btn btn--primary">Découvrir l'association</a>
-          <a href="/adherents" class="btn btn--outline">Espace Adhérents</a>
+          <a href={`${base}/association`} class="btn btn--primary">Découvrir l'association</a>
+          <a href={`${base}/adherents`} class="btn btn--outline">Espace Adhérents</a>
         </div>
       </div>
       <div class="hero__logo">
-        <img src="/logo.png" alt="Logo Horizon Almaz" width="260" height="260" />
+        <img src={`${base}/logo.png`} alt="Logo Horizon Almaz" width="260" height="260" />
       </div>
     </div>
   </section>
@@ -57,7 +59,7 @@ const highlights = [
           <p class="eyebrow">Actualités</p>
           <h2>Dernières nouvelles de l'association</h2>
         </div>
-        <a href="/blog" class="btn btn--outline btn--sm">Toutes les actualités</a>
+        <a href={`${base}/blog`} class="btn btn--outline btn--sm">Toutes les actualités</a>
       </div>
 
       {posts.length === 0 ? (
@@ -65,7 +67,7 @@ const highlights = [
       ) : (
         <div class="grid grid--3" style="margin-top:1.5rem;">
           {posts.map((post) => (
-            <a class="card news-card" href={`/blog/${post.id}`}>
+            <a class="card news-card" href={`${base}/blog/${post.id}`}>
               <span class="eyebrow">{post.data.date.toLocaleDateString('fr-FR')}</span>
               <h3 style="font-size:1.05rem;">{post.data.title}</h3>
               <p style="color:var(--color-ink-light); font-size:0.9rem;">{post.data.excerpt}</p>
@@ -82,7 +84,7 @@ const highlights = [
         <h2>Rejoignez l'espace 100% Femme</h2>
         <p class="lead">Un espace dédié aux femmes de l'association : activités, ressources et échanges.</p>
       </div>
-      <a href="/femmes" class="btn btn--primary">Découvrir l'espace</a>
+      <a href={`${base}/femmes`} class="btn btn--primary">Découvrir l'espace</a>
     </div>
   </section>
 </BaseLayout>

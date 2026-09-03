@@ -6,6 +6,7 @@ const prestataires = (await getCollection('prestataires'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const categories = [...new Set(prestataires.map((p) => p.data.categorie))].sort();
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="Retours d'expérience" description="Avis des résidents sur les prestataires : recommandations et signalements, par catégorie.">
@@ -46,7 +47,7 @@ const categories = [...new Set(prestataires.map((p) => p.data.categorie))].sort(
         ))}
       </div>
 
-      <a href="/contact" class="btn btn--primary" style="margin-top:2rem;">Partager mon retour</a>
+      <a href={`${base}/contact`} class="btn btn--primary" style="margin-top:2rem;">Partager mon retour</a>
     </div>
   </section>
 </BaseLayout>

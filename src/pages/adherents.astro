@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="Espace Adhérents" description="Zone sécurisée réservée aux adhérents de l'association Horizon Almaz.">
@@ -30,7 +32,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <input type="password" name="password" placeholder="••••••••" disabled />
           </label>
           <button type="button" class="btn btn--primary" disabled>Se connecter (à venir)</button>
-          <p class="help">Pas encore adhérent ? <a href="/contact">Contactez le bureau</a> pour demander votre accès.</p>
+          <p class="help">Pas encore adhérent ? <a href={`${base}/contact`}>Contactez le bureau</a> pour demander votre accès.</p>
         </form>
 
         <div class="card">

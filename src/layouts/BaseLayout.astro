@@ -12,6 +12,8 @@ const {
   title,
   description = "Association Horizon Almaz pour le Développement — vitrine numérique, actualités et espace adhérents du quartier Al Amz.",
 } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <!doctype html>
@@ -19,12 +21,12 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="icon" type="image/png" href={`${base}/logo.png`} />
     <title>{title} · Horizon Almaz</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={`${title} · Horizon Almaz`} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/logo.png" />
+    <meta property="og:image" content={`${base}/logo.png`} />
     <meta property="og:type" content="website" />
   </head>
   <body>
