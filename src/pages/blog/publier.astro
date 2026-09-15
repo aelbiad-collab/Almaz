@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="Publier une actualité" description="Soumettre une actualité pour publication sur le site de l'Association Horizon Almaz.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Vie du quartier</p>
+      <h1>Publier une actualité</h1>
+      <p class="lead">
+        Vous êtes membre du bureau ou responsable communication ? Soumettez une actualité pour
+        qu'elle soit publiée sur le site.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <form class="card publish-form" method="post" action="mailto:contact@horizonalmaz.ma">
+        <label>
+          Titre de l'actualité
+          <input type="text" name="title" required />
+        </label>
+        <label>
+          Résumé court (affiché dans la liste des actualités)
+          <textarea name="excerpt" rows="2" required></textarea>
+        </label>
+        <label>
+          Contenu complet
+          <textarea name="content" rows="8" required></textarea>
+        </label>
+        <div class="grid grid--2">
+          <label>
+            Mots-clés (séparés par des virgules)
+            <input type="text" name="tags" placeholder="Environnement, Communauté" />
+          </label>
+          <label>
+            Votre nom
+            <input type="text" name="author" placeholder="Association Horizon Almaz" />
+          </label>
+        </div>
+        <button type="submit" class="btn btn--primary">Envoyer pour publication</button>
+        <p class="help">
+          Cet envoi ouvre votre messagerie et transmet le contenu au bureau, qui le met en ligne.
+          Une publication en un clic, directement depuis cette page, nécessite l'intégration
+          d'un outil d'édition connecté au site (ex. Decap CMS) — prévue en phase 2, voir le
+          README du projet.
+        </p>
+      </form>
+
+      <a href={`${base}/blog`} class="btn btn--outline" style="margin-top:1.5rem;">← Retour aux actualités</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .publish-form { display: grid; gap: 1rem; }
+  .publish-form label { display: grid; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; color: var(--color-bark); }
+  .publish-form input, .publish-form textarea {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--color-cream);
+  }
+  .publish-form button { justify-self: start; }
+  .help { font-size: 0.8rem; color: var(--color-ink-light); margin: 0; }
+</style>
